@@ -1,0 +1,4 @@
+<p><%= form.text_field :percentage, value: @issue.percentage*100 %></p>
+
+<% s = select_tag :assign2, principals_options_for_select(@issue.assignable_users, @issue.assigned_to), :include_blank => true, :required => false %>
+<%k.add_next_sibling ("<p><label for='assign2'>Deux </label> #{s} </p>" ) %>

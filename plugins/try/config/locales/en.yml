@@ -1,0 +1,5 @@
+# English strings go here for Rails i18n
+en:
+  # my_label: "My label"
+  label_field_percentage: Eftakart
+  field_percentage: Percentage Allocation

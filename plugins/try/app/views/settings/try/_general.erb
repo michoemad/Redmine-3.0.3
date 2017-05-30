@@ -1,0 +1,5 @@
+
+<p><%= label_tag 'h_b_d','Hour By Day' %>
+<%= number_field_tag 'settings[h_b_d]', nil, :style => "width:150px" , :step => 0.1, :value => settings['h_b_d']%>
+<p><%= label_tag 'end_time','Enable Percentage Allocation' %>
+<%= check_box_tag 'settings[end_time]', '1', true %></p>
