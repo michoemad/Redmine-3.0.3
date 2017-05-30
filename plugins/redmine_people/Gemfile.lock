@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    redmine_crm (0.0.23)
+    vcard (0.2.13)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  redmine_crm
+  vcard (~> 0.2.8)
+
+BUNDLED WITH
+   1.10.3
