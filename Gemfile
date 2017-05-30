@@ -18,6 +18,9 @@ gem "byebug"
 gem 'tzinfo-data', platforms: [:mingw, :x64_mingw, :mswin, :jruby]
 gem "rbpdf", "~> 1.18.5"
 
+#NEEDED PLUGINS
+gem 'render_parent'
+gem 'nokogiri'
 # Optional gem for LDAP authentication
 group :ldap do
   gem "net-ldap", "~> 0.3.1"
