@@ -4,8 +4,8 @@ class Note < ActiveRecord::Base
   # safe_attributes 'title'
   unloadable
     include Redmine::SafeAttributes
-  attr_accessible :title,:link
-  safe_attributes 'title','link'
+  attr_accessible :title,:link,:attachment,:attachment_id
+  safe_attributes 'title','link',"attachment_id","attachment"
   belongs_to :attachment
   
 end

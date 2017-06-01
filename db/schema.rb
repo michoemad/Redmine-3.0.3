@@ -426,9 +426,12 @@ ActiveRecord::Schema.define(version: 20150208105930) do
   add_index "news", ["project_id"], name: "news_project_id"
 
   create_table "notes", force: :cascade do |t|
-    t.string "title"
-    t.string "link"
+    t.string  "title"
+    t.string  "link"
+    t.integer "attachment_id"
   end
+
+  add_index "notes", ["attachment_id"], name: "index_notes_on_attachment_id"
 
   create_table "open_id_authentication_associations", force: :cascade do |t|
     t.integer "issued"
