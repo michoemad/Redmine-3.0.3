@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TXIO Release Docuement Creator</title>
+  <meta charset="utf-8">
+ <!-- <meta name="viewport" content="width=device-width, initial-scale=1">-->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="jquery-ui-1.10.4.custom/development-bundle/themes/base/jquery.ui.all.css"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!-- <script src="../libs/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>
+  <script type="text/javascript"src="jquery-ui.js"></script>
+  <script type="text/javascript"src="/jquery-ui-1.11.4.custom/external/jquery/jquery.js"></script>-->
+  
+  <script src="jquery-ui-1.10.4.custom/js/jquery-1.10.2.js"></script>
+  <script src="jquery-ui-1.10.4.custom/development-bundle/ui/jquery.ui.widget.js"></script>
+  <script src="jquery-ui-1.10.4.custom/development-bundle/ui/jquery.ui.core.js"></script>
+  <script src="jquery-ui-1.10.4.custom/development-bundle/ui/jquery.ui.accordion.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
+
+  <script>
+ 	 	function fillDetails(){
+	  		/**copy text from filled in form**/
+	  		
+	  		/** Set Release Owner **/
+	  		
+	  		var e = document.getElementById("relOwner");
+	  		var ownerOption = e.options[e.selectedIndex].value;
+	  		
+	  		document.getElementById("relOwner_ext").getElementsByTagName('option')[e.selectedIndex].selected = 'selected';
+	  		
+	  		/** Set Release Date **/
+	  		document.getElementById("relDate_ext").value = document.getElementById("relDate").value;
+	  		
+	  		
+	  		/** Set Systems Affected **/
+	  		
+	  		
+	  		
+	  		/**Set external Description**/
+	  		document.getElementById("relDesc_ext").value = document.getElementById("relDesc").value;
+	  	
+	  		/**Set troubleshoot user**/
+	  		/**var e = document.getElementById("relTroubleshoot");
+	  		var ownerOption = e.options[e.selectedIndex].value;
+	  		
+	  		document.getElementById("relTroubleshoot_ext").getElementsByTagName('option')[e.selectedIndex].selected = 'selected';**/
+	  		document.getElementById("docDate_ext").value = document.getElementById("docDate").value;
+ 		}
+ 	 </script>
+
+	<script type="text/javascript">
+	function setDocDate(){
+		var d = new Date();
+		
+		var day = d.getDate();
+		var month = d.getMonth()+1;
+		var year = d.getFullYear();
+		
+		if (month < 10) month = "0" + month;
+		if (day < 10) day = "0" + day;
+
+		var today = day + "/" + month + "/" + year;
+		document.getElementById("docDate").value = today;
+  		document.getElementById('docDate_ext').value = today;
+	}
+	</script>
+	
+	<script>
+	$(document).ready(function() {
+	    $('#datePicker')
+	        .datepicker({
+	            format: 'mm/dd/yyyy'
+	        })
+	        .on('changeDate', function(e) {
+	            // Revalidate the date field
+	            $('#eventForm').formValidation('revalidateField', 'date');
+	        });
+	    
+	    $('.input-group.date').datepicker({
+	        todayBtn: "linked",
+	        language: "it",
+	        autoclose: true,
+	        todayHighlight: true,
+	        format: 'dd/mm/yyyy' 
+	    });
+	    
+	    setDocDate();
+
+	});
+	</script>
+</head>
+<body>
+
+<div class="container">
+  <br>
+
+  <h2 id='h'>TXIO Release Document Creator</h2>
+  <form role="form" action="create" method="get">
+    
+    <div class="form-group">
+				<label for="relOwner">Release Owner:</label> 
+				<%= select_tag "relOwner" ,options_from_collection_for_select(@users,"name","name"), class: "form-control" %>
+				<!-- <select id="relOwner" name="relOwner" class="form-control">
+					<option value="" disabled selected hidden>Please Choose</option>
+					<option value="Chris Florian">Chris Florian</option>
+					<option value="Daniel Vranesic">Daniel Vranesic</option>
+					<option value="Derek Devries">Derek Devries</option>
+					<option value="Divya Dadlani">Divya Dadlani</option>
+					<option value="Filip Klimowski">Filip Klimowski</option>
+					<option value="Greg Pintilie">Greg Pintilie</option>
+					<option value="Mohak Poddar">Mohak Poddar</option>
+					<option value="Numal Jayawardena"> Numal Jayawardena</option>
+					<option value="Tahir Diop">Tahir Diop</option>
+					<option value="Vega Han">Vega Han</option>
+					<option value="Yongbo Tang">Yongbo Tang</option>
+				</select> -->
+	</div>
+    
+    
+    <div class="form-group">
+    	<div class="input-group date" data-provide="datepicker">
+      		<label for="relDate">Release Date:</label>
+      		<div class="date">
+            	<div class="input-group input-append date" id="datePicker">
+                	<input type="text" class="form-control" id="relDate" name="relDate" />
+                	<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            	</div>
+        	</div>
+      	</div>
+    </div>
+    
+    <div class="form-group">
+      <div class="input-group date" data-provide="datepicker">
+      		<label for="docDate">Document Date:</label>
+      		<div class="date">
+           		<div class="input-group input-append date" id="datePicker">
+                	<input type="text" class="form-control" id="docDate" name="docDate" />
+                	<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            	</div>
+        	</div>
+      	</div>
+    </div>
+    
+    
+    <div class="form-group">
+      <label for="sysAffected">Systems Affected:</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="AS"/>AS</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="AT"/>AT</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="TS"/>TS</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="SM"/>SM</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="SS"/>SS</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="PRICEGEN"/>PRICEGEN</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="TH-UI-Web"/>TH-UI (Web)</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="TH-UI-Mobile"/>TH-UI (Mobile)</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="MDS"/>MDS</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="FS"/>FS</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="PH"/>PH</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected" value="FIX"/>FIX</label>	
+    </div>
+    
+    <div class="form-group">
+      <label for="targetSys">Target Systems:</label>
+      <label class="checkbox-inline"><input type="checkbox" name="targetSys" value="TradeHub-Demo"/>TradeHub-Demo</label>
+      <label class="checkbox-inline"><input type="checkbox" name="targetSys" value="TradeHub-Live"/>TradeHub-Live</label>
+    </div>
+    
+    <div class="form-group">
+      <label for="targetSys">Release Purpose:</label>
+      <label class="checkbox-inline"><input type="checkbox" name="purpose" value="Bug Fix"/>Bug Fix</label>
+      <label class="checkbox-inline"><input type="checkbox" name="purpose" value="New Feature"/>New Feature</label>
+    </div>
+    
+    <div class="form-group">
+      <label for="relDesc">Internal Release Description:</label>
+      <textarea class="form-control" rows="5" id="relDesc" name="relDesc" placeholder="Enter Release Description"></textarea>
+    </div>
+    
+    
+    <div class="form-group">
+      <label for="redmineNum">RedMine Issue #:</label>
+      <input type="text" class="form-control" id="redmineNum" name="redmineNum" placeholder="Enter comma seperated issue numbers">
+    </div>
+    
+    <div class="form-inline">
+    <div class="form-group">
+      <label>SVN Revision #:</label>
+      <select id="repoName" id="repoName" name="repoName" class="form-control">
+			<option value="" disabled selected hidden>Please Choose</option>
+			<option value="svnrepo_srv">svnrepo_srv</option>
+			<option value="svnrepo_pm">svnrepo_pm</option>
+			<option value="svnrepo_web">svnrepo_web</option>
+			<option value="svnrepo_jslib">svnrepo_jslib</option>
+			<option value="svnrepo_pricehistory">svnrepo_pricehistory</option>
+			<option value="svnrepo_evree_web">svnrepo_evree_web</option>
+			<option value="svnrepo_gekkoth2">svnrepo_gekkoth2</option>
+                        <option value="svnrepo_FIX">svnrepo_FIX</option>
+	</select>
+	<input type="number" class="form-inline" id="svnRevisionStart" name="svnRevisionStart" placeholder="Revision start"> 
+	<input type="number" class="form-inline" id="svnRevisionEnd" name="svnRevisionEnd" placeholder="Revision end">
+    </div>
+    </div>
+	</br>
+	<div class="form-group">
+		<label for="relTroubleshoot">Emergency Contact:</label> 
+		<%= select_tag "relTroubleshoot" ,options_from_collection_for_select(@users,"name","name"), class: "form-control" %>
+<!-- 		<select id="relTroubleshoot" name="relTroubleshoot" class="form-control">
+			<option value="" disabled selected hidden>Please Choose</option>
+					<option value="Chris Florian">Chris Florian</option>
+					<option value="Daniel Vranesic">Daniel Vranesic</option>
+					<option value="Derek Devries">Derek Devries</option>
+					<option value="Divya Dadlani">Divya Dadlani</option>
+					<option value="Filip Klimowski">Filip Klimowski</option>
+					<option value="Greg Pintilie">Greg Pintilie</option>
+					<option value="Mohak Poddar">Mohak Poddar</option>
+					<option value="Numal Jayawardena"> Numal Jayawardena</option>
+					<option value="Tahir Diop">Tahir Diop</option>
+					<option value="Vega Han">Vega Han</option>
+					<option value="Yongbo Tang">Yongbo Tang</option>
+		</select> -->
+	</div>
+
+	<div class="form-group">
+		<label for="relLiaison">Release Liaison:</label> 
+		<%= select_tag "relLiaison" ,options_from_collection_for_select(@users,"name","name"), class: "form-control" %>
+<!-- 		<select id="relLiaison" name="relLiaison" class="form-control">
+			<option value="" disabled selected hidden>Please Choose</option>
+					<option value="Chris Florian">Chris Florian</option>
+					<option value="Daniel Vranesic">Daniel Vranesic</option>
+					<option value="Derek Devries">Derek Devries</option>
+					<option value="Divya Dadlani">Divya Dadlani</option>
+					<option value="Filip Klimowski">Filip Klimowski</option>
+					<option value="Greg Pintilie">Greg Pintilie</option>
+					<option value="Mohak Poddar">Mohak Poddar</option>
+					<option value="Numal Jayawardena"> Numal Jayawardena</option>
+					<option value="Tahir Diop">Tahir Diop</option>
+					<option value="Vega Han">Vega Han</option>
+					<option value="Yongbo Tang">Yongbo Tang</option>
+		</select> -->
+	</div>
+	
+
+	<button type="submit" name="gen_button" class="btn btn-default" value="gen_int">Generate Internal Doc</button>
+	<hr class="divider">
+	
+	<button type="button" class="btn" data-toggle="collapse" data-target="#ext_data" onclick="fillDetails()">External Document</button>
+<div id="ext_data" class="collapse">
+	<!-- Fields for external document -->
+	
+	<div class="form-group">
+				<label for="relOwner_ext">Release Owner:</label> 
+				<%= select_tag "relOwner_ext" ,options_from_collection_for_select(@users,"name","name"), class: "form-control" %>
+<!-- 
+				<select id="relOwner_ext" name="relOwner_ext" class="form-control">
+				<option value="" disabled selected hidden>Please Choose</option>
+					<option value="Chris Florian">Chris Florian</option>
+					<option value="Daniel Vranesic">Daniel Vranesic</option>
+					<option value="Derek Devries">Derek Devries</option>
+					<option value="Divya Dadlani">Divya Dadlani</option>
+					<option value="Filip Klimowski">Filip Klimowski</option>
+					<option value="Greg Pintilie">Greg Pintilie</option>
+					<option value="Mohak Poddar">Mohak Poddar</option>
+					<option value="Numal Jayawardena"> Numal Jayawardena</option>
+					<option value="Tahir Diop">Tahir Diop</option>
+					<option value="Vega Han">Vega Han</option>			
+					<option value="Yongbo Tang">Yongbo Tang</option>				</select> -->
+	</div>
+    
+    
+    <div class="form-group">
+      <div class="input-group date" data-provide="datepicker">
+      		<label for="relDate_ext">Release Date:</label>
+      		<div class="date">
+            	<div class="input-group input-append date" id="datePicker">
+                	<input type="text" class="form-control" id="relDate_ext" name="relDate_ext" />
+                	<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            	</div>
+        	</div>
+      	</div>
+    </div>
+    
+    <div class="form-group">
+     <div class="input-group date" data-provide="datepicker">
+      		<label for="docDate_ext">Document Date:</label>
+      		<div class="date">
+           		<div class="input-group input-append date" id="datePicker">
+                	<input type="text" class="form-control" id="docDate_ext" name="docDate_ext" />
+                	<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            	</div>
+        	</div>
+      	</div>
+    </div>
+    
+    <!--<div class="form-group">
+      <label for="sysAffected_ext">Systems Affected:</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="AS"/>AS</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="AT"/>AT</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="TS"/>TS</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="SM"/>SM</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="SS"/>SS</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="PRICEGEN"/>PRICEGEN</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="TH-UI-Web"/>TH-UI (Web)</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="TH-UI-Mobile"/>TH-UI (Mobile)</label>
+      <label class="checkbox-inline"><input type="checkbox" name="sysAffected_ext" value="MDS"/>MDS</label>
+    </div>-->
+    
+    <div class="form-group">
+      <label for="targetSys_ext">Target Systems:</label>
+      <label class="checkbox-inline"><input type="checkbox" name="targetSys_ext" value="TradeHub-Demo"/>TradeHub-Demo</label>
+      <label class="checkbox-inline"><input type="checkbox" name="targetSys_ext" value="TradeHub-Live"/>TradeHub-Live</label>
+    </div>
+    
+    <div class="form-group">
+      <label for="relDesc_ext">External Release Description:</label>
+      <textarea class="form-control" rows="5" id="relDesc_ext" name="relDesc_ext" placeholder="Enter Release Description"></textarea>
+    </div>
+    
+   
+	<button type="submit" name="gen_button" class="btn btn-default" value="gen_ext">Generate External Doc</button>
+</div>
+
+			
+			
+  </form>
+</div>
+
+
+</body>

@@ -1,10 +1,10 @@
-<% content = render :parent, {:g => :locals }%>
+<% content = render :parent%>
 <% html = Nokogiri::HTML.fragment(content) %>
 <% k = html.at_css("select#issue_assigned_to_id")%>
 <% k.add_next_sibling(capture do %>
 <br><p>
 <label><%=l(:field_percentage) %></label> <%=select_tag "issue[percentage]", options_for_select((0..10).to_a.collect {|r| ["#{r*10} %", r*10.0] },@issue.percentage*100.0) %>
-<%=image_tag('add.png', :style => 'vertical-align: middle;',:id => "plus")%>
+
 </p>
 <div id="brens" ></div>
             
@@ -12,7 +12,7 @@
             <%= javascript_tag do %>
             var x =@issue;
 	$(document).on('click', '#plus', function(e){
-    var currGroup = $("<div id='text'></div> ");
+    var currGroup = $("<div id='brens'></div> ");
     currGroup.append("<input type='text' name='aywan' value='text'></input>");
     jQuery("#brens").append(currGroup);
 });
