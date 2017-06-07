@@ -3,3 +3,10 @@
 Redmine is a flexible project management web application written using Ruby on Rails framework.
 
 More details can be found in the doc directory or on the official website http://www.redmine.org
+Changes to be done on server
+1-At member_role.rb:   def validate_role_member
+    #errors.add :role_id, :invalid if role && !role.member?
+  end
+  
+2-   At role.rb attr_protected :builtin, :as => :admin
+3- Create Role "Tech manager" with builtin:3
