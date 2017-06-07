@@ -1,0 +1,9 @@
+<% content = render :parent%>
+<% html = Nokogiri::HTML.fragment(content) %>
+<%k=html.at_css("div.roles-selection") %>
+<%r=Role.find_by(name:"Technical Manager")%>
+
+<% if User.current.groups.any?{|w|w.lastname=="CTO"} %>
+<% k<< "<label><input name=\"membership[role_ids][]\" value=\"#{r.id}\" type=\"checkbox\"> #{r.name}</label>"%>
+<%end%>
+<%=raw html %>

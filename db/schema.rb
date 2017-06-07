@@ -13,6 +13,20 @@
 
 ActiveRecord::Schema.define(version: 20150208105930) do
 
+  create_table "actions", force: :cascade do |t|
+    t.integer "activity_id"
+    t.string  "name"
+    t.text    "description"
+    t.integer "position",    default: 0, null: false
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string  "name"
+    t.integer "model_id"
+    t.text    "description"
+    t.integer "position",    default: 0, null: false
+  end
+
   create_table "assignments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "issue_id"
@@ -334,6 +348,7 @@ ActiveRecord::Schema.define(version: 20150208105930) do
     t.boolean  "is_private",       default: false, null: false
     t.datetime "closed_on"
     t.float    "percentage",       default: 1.0
+    t.boolean  "if_pf",            default: false, null: false
   end
 
   add_index "issues", ["assigned_to_id"], name: "index_issues_on_assigned_to_id"
@@ -429,9 +444,11 @@ ActiveRecord::Schema.define(version: 20150208105930) do
     t.string  "title"
     t.string  "link"
     t.integer "attachment_id"
+    t.integer "project_id"
   end
 
   add_index "notes", ["attachment_id"], name: "index_notes_on_attachment_id"
+  add_index "notes", ["project_id"], name: "index_notes_on_project_id"
 
   create_table "open_id_authentication_associations", force: :cascade do |t|
     t.integer "issued"
@@ -478,6 +495,32 @@ ActiveRecord::Schema.define(version: 20150208105930) do
     t.datetime "updated_at",                  null: false
   end
 
+  create_table "pf_attachments", force: :cascade do |t|
+    t.integer  "foreign_id",                                               null: false
+    t.string   "type",          limit: 16,                                 null: false
+    t.string   "filename"
+    t.string   "disk_filename"
+    t.integer  "filesize",                 default: 0
+    t.text     "description"
+    t.datetime "created_on",               default: '2017-06-07 14:35:55', null: false
+    t.integer  "author_id"
+  end
+
+  create_table "pf_tasks", force: :cascade do |t|
+    t.integer "action_id"
+    t.string  "name",                    null: false
+    t.text    "description"
+    t.integer "position",    default: 0, null: false
+  end
+
+  create_table "process_models", force: :cascade do |t|
+    t.string   "name",                                        null: false
+    t.text     "description"
+    t.datetime "date",        default: '2017-06-07 14:35:55', null: false
+    t.integer  "author_id"
+    t.integer  "position",    default: 0,                     null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string   "name",            default: "",    null: false
     t.text     "description"
@@ -491,6 +534,8 @@ ActiveRecord::Schema.define(version: 20150208105930) do
     t.integer  "lft"
     t.integer  "rgt"
     t.boolean  "inherit_members", default: false, null: false
+    t.boolean  "if_config_pf",    default: false, null: false
+    t.integer  "model_id"
   end
 
   add_index "projects", ["lft"], name: "index_projects_on_lft"
@@ -659,6 +704,7 @@ ActiveRecord::Schema.define(version: 20150208105930) do
     t.string   "wiki_page_title"
     t.string   "status",          default: "open"
     t.string   "sharing",         default: "none", null: false
+    t.boolean  "if_pf",           default: false,  null: false
   end
 
   add_index "versions", ["project_id"], name: "versions_project_id"

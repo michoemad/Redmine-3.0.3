@@ -21,6 +21,7 @@ gem "rbpdf", "~> 1.18.5"
 #NEEDED PLUGINS
 gem 'render_parent'
 gem 'nokogiri'
+gem 'mechanize'
 # Optional gem for LDAP authentication
 group :ldap do
   gem "net-ldap", "~> 0.3.1"

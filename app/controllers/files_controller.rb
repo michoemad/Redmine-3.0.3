@@ -23,7 +23,6 @@ class FilesController < ApplicationController
 
   helper :sort
   include SortHelper
-
   def index
     sort_init 'filename', 'asc'
     sort_update 'filename' => "#{Attachment.table_name}.filename",
@@ -32,7 +31,7 @@ class FilesController < ApplicationController
                 'downloads' => "#{Attachment.table_name}.downloads"
 
     @containers = [Project.includes(:attachments).
-                     references(:attachments).reorder(sort_clause).find(@project.id)]
+                     references(:attachments).reorder(sort_clause).find(@project.id)] #Has all the projects
     @containers += @project.versions.includes(:attachments).
                     references(:attachments).reorder(sort_clause).to_a.sort.reverse
     render :layout => !request.xhr?
@@ -40,10 +39,12 @@ class FilesController < ApplicationController
 
   def new
     @versions = @project.versions.sort
+    
   end
 
   def create
     container = (params[:version_id].blank? ? @project : @project.versions.find_by_id(params[:version_id]))
+    byebug
     attachments = Attachment.attach_files(container, params[:attachments])
     render_attachment_warning_if_needed(container)
 

@@ -29,7 +29,7 @@ class MemberRole < ActiveRecord::Base
   attr_protected :id
 
   def validate_role_member
-    errors.add :role_id, :invalid if role && !role.member?
+    #errors.add :role_id, :invalid if role && !role.member?
   end
 
   def inherited?

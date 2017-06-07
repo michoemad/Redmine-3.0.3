@@ -1,11 +1,14 @@
 require 'webrick'
 require 'stringio'
+require 'net/http'
 class DocCreatorController < ApplicationController
- unloadable
+ #unloadable
 
 
   def index
     @notes = Note.all
+
+    
 
   end
 
@@ -40,7 +43,8 @@ class DocCreatorController < ApplicationController
     @attachment.filename = file_name
     #@attachment.content_type = params[:content_type].presence
     k = @attachment.save
-    @note = Note.create(title: file_name, link: @attachment.diskfile)
+    n = Note.create(title: file_name, attachment_id: @attachment.id, project_id: @project.id)
+    #@note = Note.create(title: file_name, attachment_id: )
     #@note.link= @attachment.diskfile
     #@note.save
     redirect_to action: "index"

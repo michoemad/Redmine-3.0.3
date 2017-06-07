@@ -13,4 +13,6 @@ Redmine::Plugin.register :release_notes do
  #   permission :view_plusgantt, {:plusgantt => [:show]}
 	permission :doc_creator, {:doc_creator => [:index]}
   end
+
+
 end

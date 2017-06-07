@@ -80,7 +80,7 @@ force_default_language_for_anonymous:
 force_default_language_for_loggedin:
   default: 0
 host_name:
-  default: 192.168.99.11:3000
+  default: 192.168.99.225:3000
 protocol:
   default: http
 feeds_limit:

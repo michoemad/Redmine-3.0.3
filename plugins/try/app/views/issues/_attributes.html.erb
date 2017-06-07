@@ -4,19 +4,10 @@
 <% k.add_next_sibling(capture do %>
 <br><p>
 <label><%=l(:field_percentage) %></label> <%=select_tag "issue[percentage]", options_for_select((0..10).to_a.collect {|r| ["#{r*10} %", r*10.0] },@issue.percentage*100.0) %>
+</p><p>
 
-</p>
-<div id="brens" ></div>
-            
-            
-            <%= javascript_tag do %>
-            var x =@issue;
-	$(document).on('click', '#plus', function(e){
-    var currGroup = $("<div id='brens'></div> ");
-    currGroup.append("<input type='text' name='aywan' value='text'></input>");
-    jQuery("#brens").append(currGroup);
-});
-<%end%>
+ </p>
+
 <% end) %>
 
 <%=raw html %>
