@@ -1,0 +1,6 @@
+<%if @issue.tracker_id==Tracker.find_by(name:"Release").id %>
+
+<%=button_tag "Glorious House of Gains", onclick: "location.href='#{@issue.id}/generator'"%>
+
+
+<%end%>

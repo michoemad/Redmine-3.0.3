@@ -133,6 +133,7 @@ class IssuesController < ApplicationController
   end
 
   def create
+
     unless User.current.allowed_to?(:add_issues, @issue.project, :global => true)
       raise ::Unauthorized
     end
@@ -173,6 +174,7 @@ class IssuesController < ApplicationController
   end
 
   def update
+    
     return unless update_issue_from_params
     @issue.save_attachments(params[:attachments] || (params[:issue] && params[:issue][:uploads]))
     saved = false

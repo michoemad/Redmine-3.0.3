@@ -1,5 +1,5 @@
 require_dependency 'hooks'
-
+require_dependency 'project_patch'
 Redmine::Plugin.register :perms do
   name 'Perms plugin'
   author 'Author name'

@@ -22,6 +22,7 @@ class DocCreatorController < ApplicationController
   end
 
   def create
+    fail
   	x = Net::HTTP.post_form(URI('http://192.168.99.11:8100/createLatexDoc'),params)
 
 	tempfile = Tempfile.new('new.pdf')
