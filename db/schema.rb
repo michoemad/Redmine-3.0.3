@@ -347,7 +347,6 @@ ActiveRecord::Schema.define(version: 20150208105930) do
     t.integer  "rgt"
     t.boolean  "is_private",       default: false, null: false
     t.datetime "closed_on"
-    t.float    "percentage",       default: 1.0
     t.boolean  "if_pf",            default: false, null: false
   end
 

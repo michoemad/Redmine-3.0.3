@@ -1,6 +1,6 @@
 require_dependency 'try'
-require_dependency 'issue_patch'
-require_dependency 'hooks'
+#require_dependency 'issue_patch'
+require'hooks'
 Redmine::Plugin.register :try do
   name 'Percentage Allocation'
   author 'Michael Karras'
@@ -13,6 +13,6 @@ Redmine::Plugin.register :try do
   end
 end
 
-ActionDispatch::Callbacks.to_prepare do
-  Try.setup
-end
+# ActionDispatch::Callbacks.to_prepare do
+#   Try.setup
+# end

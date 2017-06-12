@@ -22,6 +22,9 @@ gem "rbpdf", "~> 1.18.5"
 gem 'render_parent'
 gem 'nokogiri'
 gem 'mechanize'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # Optional gem for LDAP authentication
 group :ldap do
   gem "net-ldap", "~> 0.3.1"

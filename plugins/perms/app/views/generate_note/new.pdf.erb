@@ -1,0 +1,47 @@
+<head>
+<img src="http://192.168.99.11:8100/logo.png" align="right">
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+p {
+    font-family: "Times New Roman", Times, serif;
+}
+tr:{background-color: #f2f2f2}
+
+th {
+    background-color: #f2f2f2;
+    color: black;
+}
+</style>
+</head>
+
+<%	  	i=@issue.custom_field_values%>
+<h1 style="font-family:verdana">Release Summary - <%=project.name%></h1>
+<br>
+<table >
+<tr><th>Role</th><th>Staff</th></tr>
+<tr>
+<td>Release Manager</td><td><%=User.find(i[0].value).name%></td>
+</tr>
+<tr>
+<td>Release Approver</td><td><%=User.find(i[11].value).name%></td>
+</tr>
+</table>
+<br>
+<p>Date: <%=Time.now.strftime('%A, %d %B %Y')%></p>
+<p>RedMine Issue: #<%=issue.id%></p>
+<p>Targer System: <%=i[5].value.join(' ')%></p>
+<p>Server: <%=i[3].value.join(' ')%></p>
+<p>Description: <%=issue.description%></p>
+<p>MD5: <%=i[12].value%></p>
+
+<p>Release Status: <%=issue.status.name%></p>
+<p>Notes: <%=i[13].value%></p>

@@ -1,6 +1,8 @@
 <%if @issue.tracker_id==Tracker.find_by(name:"Release").id %>
 
-<%=button_tag "Glorious House of Gains", onclick: "location.href='#{@issue.id}/generator'"%>
+<%=button_tag "Generate Internal Document", onclick: "location.href='#{@issue.id}/generator?is_internal=true'"%>
 
+<%=button_tag "Generate External Document", onclick: "location.href='#{@issue.id}/generator?is_internal=false'"%>
 
+<%=button_tag "Generate Release Summary Notes", onclick: "location.href='#{@issue.id}/new.pdf'"%>
 <%end%>

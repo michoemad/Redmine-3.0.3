@@ -79,7 +79,8 @@ module Try
       
       #calculate end date.
       hour_by_day = get_asignacion(issue)
-      days = ((issue.estimated_hours / hour_by_day.to_f)*(1.0/(issue.percentage))).ceil
+      perc = issue.custom_field_values[0].value.to_f/100.0
+      days = ((issue.estimated_hours / hour_by_day.to_f)*(1.0/perc)).ceil
       
       if days <= 1 
         issue.due_date = issue.start_date
@@ -174,8 +175,8 @@ module Try
   class TryHookListener < Redmine::Hook::ViewListener
 
     
-  #  render_on :view_issues_form_details_bottom,
-   #           :partial => 'hooks/view_issues_form_details_bottom'
+  #render_on :view_issues_form_details_bottom,:partial => 'hooks/view_issues_form_details_bottom'
+
     def controller_issues_new_after_save(context={})
       update_issue_end_date(context, true)
     end
@@ -189,18 +190,22 @@ module Try
     end
      
     def update_issue_end_date(context={}, save)
+
       if Try.calculate_end_date
         @utils = Utils.new()
 
       
         issue = context[:issue]
-        if issue.start_date && issue.estimated_hours && issue.leaf?
-          @utils.update_issue_end_date(issue)
-          if save
-            if issue.save
-              Rails.logger.info("Issue updated")
-            else
-              raise ActiveRecord::Rollback
+
+        if issue.tracker.name != "Release" && issue.tracker.name != "PLC"
+          if issue.start_date && issue.estimated_hours && issue.leaf?
+            @utils.update_issue_end_date(issue)
+            if save
+              if issue.save
+                Rails.logger.info("Issue updated")
+              else
+                raise ActiveRecord::Rollback
+              end
             end
           end
         end
